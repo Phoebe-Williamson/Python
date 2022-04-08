@@ -9,11 +9,16 @@ def print_dictionary(dictionary):
     accepts a dictionary, looops through it and prints
     out the game and its rating
     """
-    for game, rating in dictionary.items():
-        print("Game: {}\tRating: {}".format(game, rating))
+    for id, game in dictionary.items():
+        print("id: {} Game: {}\tRating: {}".format(id,
+                                                   game["name"],
+                                                   game["Rating"]))
 
 
 if __name__ == "__main__":
-    videogames = {"Minecraft":5, "Call of Duty":1, "Angry Birds":4,
-                  "Splatoon 2":5, "Animal Crossing":4}
+    videogames = {1:{"name":"Minecraft", "Rating":5},
+                  2:{"name":"Call of Duty", "Rating":1},
+                  3:{"name":"Angry Birds", "Rating":4},
+                  4:{"name":"Splatoon 2", "Rating":5},
+                  5:{"name":"Animal Crossing", "Rating":4}}
     print_dictionary(videogames)
