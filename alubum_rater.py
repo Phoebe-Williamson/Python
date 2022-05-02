@@ -39,14 +39,14 @@ def add_album(dictionary):
             adding_albums = False
 
 
-# function for deleting album
+# function for deleting album - I made this
 def deleting_album(dictionary):
     deleting_albums = True
     while deleting_albums:
         try:
             print(dictionary)
-            delete = int(input("\nPlease select the album you would like to "
-                               "delete, or press 'q' to quit: "))
+            delete = input("\nPlease select the album you would like to "
+                               "delete, or press 'q' to quit: ")
             if delete == "q":
                 deleting_albums = False
             else:
@@ -65,11 +65,11 @@ def editing_albums():
 
 
 # function for rating album
-def rating_album():
+def rate_album():
     pass
 
 
-# function for printing album
+# function for printing album - Both did individually as its eay to add
 def printing_album():
     print(albums)
 
