@@ -43,17 +43,20 @@ def add_album(dictionary):
 def deleting_album(dictionary):
     deleting_albums = True
     while deleting_albums:
-        print(dictionary)
-        delete = int(input("\nPlease select the album you would like to "
-                           "delete, or press 'q' to quit: "))
-        if delete == "q":
+        try:
+            print(dictionary)
+            delete = int(input("\nPlease select the album you would like to "
+                               "delete, or press 'q' to quit: "))
+            if delete == "q":
                 deleting_albums = False
-        else:
-            print("You have chose to delete album {}.".format(delete))
-            del dictionary[delete]
-            key = len(dictionary) - 1
-            dictionary.update()
-            deleting_albums = False
+            else:
+                print("You have chose to delete album {}.".format(delete))
+                del dictionary[delete]
+                key = len(dictionary) - 1
+                dictionary.update()
+                deleting_albums = False
+        except ValueError:
+            print("\nPlease enter a valid alum number, e.g 3\n")
 
 
 # function for editing album
@@ -78,6 +81,9 @@ def recomdening_album():
 
 # menu #turn into function
 def getting_album():
+    """
+    menu function to chose what function of the album rater to do
+    """
     choices = [1, 2, 3, 4, 5, 6]
     getting_albums = True
     while getting_albums:
@@ -95,10 +101,10 @@ def getting_album():
                 getting_albums = False
         except ValueError:
             print("enter a valid number")
-        return choice
+    return choice
 
 # main routine
-if __name__ == "__main__":
+if __name__ == "__main__":  # Janelle made dictionary 
     albums = {1: {"Title": "Sour",
                   "Artist": "Olivia Rodrigo",
                   "Genre": "Pop", "Rating": 5},
@@ -114,11 +120,12 @@ if __name__ == "__main__":
               5: {"Title": "Daddy's Home",
                   "Artist": "St. Vincent",
                   "Genre": "Pop", "Rating": 2}}
+# loop so menu will keep runing through after chosing an option
     code_running = True
     while code_running:
         menu_option = getting_album()
         if menu_option == 1:
-            adding_album(albums)
+            add_album(albums)
             print(albums)
         elif menu_option == 2:
             deleting_album(albums)
@@ -135,6 +142,6 @@ if __name__ == "__main__":
             deleting_album(albums)
             print(albums)
         elif menu_option == 0:
-            pass
+            code_runing = False
         else:
             print("That is not a valid option.")
