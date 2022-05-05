@@ -65,8 +65,44 @@ def editing_albums():
 
 
 # function for rating album
-def rate_album():
-    pass
+# made by janelle but changed to fit my code and to work
+def rate_album(dictionary):
+    album_rating_change = input("\nPlease select the key number "
+                                    "for the album you would like to "
+                                    "change the rating for"
+                                    "\nOR press 'q' to quit: ")
+    album_info = dictionary[album_rating_change]
+    album = album_info["Title"]
+    artist = album_info["Artist"]
+    genre = album_info["Genre"]
+    rating = album_info["Rating"]
+    key = album_rating_change
+
+    getting_rating = True
+    while getting_rating:
+        try:
+            new_rating = int(input("Please give the album a rating out of 5: "))
+            if album_rating_change == 'q':
+                getting_rating = False
+            elif new_rating < 0 or new_rating > 5:
+                print("Please rate the album from 0 to 5")
+
+            elif new_rating == rating:
+                print("The album already has this rating "
+                      "please change it")
+
+            elif new_rating != rating and new_rating >= 0 and new_rating <= 5:
+                dictionary.update({key: {"Title": album,
+                                     "Artist": artist,
+                                     "Genre": genre,
+                                     "Rating": new_rating}})
+                getting_rating = False
+
+            else:
+                print("Please enter a number between 0 and 5")
+                
+        except ValueError:
+            print("Please enter a whole number")
 
 
 # function for printing album - Both did individually as its eay to add
@@ -131,15 +167,15 @@ if __name__ == "__main__":  # Janelle made dictionary
             deleting_album(albums)
             print(albums)
         elif menu_option == 3:
-            deleting_album(albums)
+            edit_album(albums)
             print(albums)
         elif menu_option == 4:
-            deleting_album(albums)
+            rate_album(albums)
             print(albums)
         elif menu_option == 5:
             printing_albums()
         elif menu_option == 6:
-            deleting_album(albums)
+            recomending_album(albums)
             print(albums)
         elif menu_option == 0:
             code_runing = False
