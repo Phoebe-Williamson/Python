@@ -10,7 +10,7 @@
 # you should make version control
 # you SHOULD make this program robust
 ##
-# 8/4/22 - ?
+# 8/4/22 - 6/5/22
 # Authors: Phoebe and Janelle
 
 
@@ -30,11 +30,11 @@ def add_album(dictionary):
             artist = input("Please enter the artist: ")
             genre = input("Please enter the genre: ")
             rating = input("Please give it a rating: ")
-            key = len(dictionary) + 1
+            key = list(dictionary.keys())[-1] + 1
 
-            dictionary.update({key: {"Title": album,
-                                     "Artist": artist,
-                                     "Genre": genre,
+            dictionary.update({key: {"Title": album.title(),
+                                     "Artist": artist.title(),
+                                     "Genre": genre.title(),
                                      "Rating": rating}})
             adding_albums = False
 
@@ -44,7 +44,6 @@ def deleting_album(dictionary):
     deleting_albums = True
     while deleting_albums:
         try:
-            print(dictionary)
             delete = input("\nPlease select the album you would like to "
                            "delete, or press 'q' to quit: ")
             if delete == "q":
@@ -56,7 +55,7 @@ def deleting_album(dictionary):
                 dictionary.update()
                 deleting_albums = False
         except ValueError:
-            print("\nPlease enter a valid alum number, e.g 3\n")
+            print("\nPlease enter a valid album number, e.g 3\n")
 
 
 # function for editing album
@@ -65,7 +64,8 @@ def editing_albums():
 
 
 # function for rating album
-# made by janelle but changed to fit my code and to work
+# origional is made by janelle
+# but I changed to fit my code and to work as it didnt used to
 def rate_album(dictionary):
     album_rating_change = int(input("\nPlease select the key number "
                                     "for the album you would like to "
@@ -105,8 +105,18 @@ def rate_album(dictionary):
 
 
 # function for printing album - Both did individually as its eay to add
-def printing_album():
-    print(albums)
+def print_albums(dictionary):
+    """
+    Prints albums out formated
+    """
+    for key in dictionary.keys():
+        album_info = dictionary[key]
+        album = album_info["Title"]
+        artist = album_info["Artist"]
+        genre = album_info["Genre"]
+        rating = album_info["Rating"]
+
+        print("{}\t{}\t\t{}\t{}\t{}".format(key, album, artist, genre, rating))
 
 
 # function for recomending album
@@ -119,7 +129,7 @@ def getting_album():
     """
     menu function to chose what function of the album rater to do
     """
-    choices = [1, 2, 3, 4, 5, 6]
+    choices = [1, 2, 3, 4, 5, 6, 0]
     getting_albums = True
     while getting_albums:
         try:
@@ -134,6 +144,8 @@ def getting_album():
             if choice in choices:
                 print("you have chosen {}.\n".format(choice))
                 getting_albums = False
+            else:
+                print("Please anter a valid number")
         except ValueError:
             print("enter a valid number")
     return choice
@@ -161,22 +173,22 @@ if __name__ == "__main__":  # Janelle made dictionary
         menu_option = getting_album()
         if menu_option == 1:
             add_album(albums)
-            print(albums)
+            print_albums(albums)
         elif menu_option == 2:
+            print_albums(albums)
             deleting_album(albums)
-            print(albums)
+            print_albums(albums)
         elif menu_option == 3:
             editing_albums()
         elif menu_option == 4:
-            print(albums)
+            print_albums(albums)
             rate_album(albums)
-            print(albums)
+            print_albums(albums)
         elif menu_option == 5:
-            printing_albums()
+            print_albums(albums)
         elif menu_option == 6:
-            recomending_album()
+            recomdening_album()
         elif menu_option == 0:
-            code_runing = False
-            exit
+            code_running = False
         else:
             print("That is not a valid option.")
