@@ -8,7 +8,7 @@
 # 9/5/22 - 21/5/22
 
 # Done:
-# Funtion for menu 
+# Funtion for menu
 
 # To do list:
 # Function to add movie (title, director, and length)
@@ -17,39 +17,39 @@
 # Funtion to print out all the movies
 
 
-# Funtion for menu 
+# Funtion for menu
 def getting_movie():
     """
     menu function to allow the user to chose the function to acess
     and returns selected option
     """
-    choices = ['A', 'a', 'E', 'e', 'L', 'l', 'P', 'p', 'Q', 'q']
+    choices = [1, 2, 3, 4, 0]
     menu_option = True
     while menu_option:
         try:
             # asks user for an input
-            choice = input("\n*** Menu ***"
-                           "\n'A': Add movie"
-                           "\n'E': Edit movie length"
-                           "\n'L': Print out movie length"
-                           "\n'P': Print out list of movies"
-                           "\n'Q': Quit"
-                           "\nEnter option here: ")
+            choice = int(input("\n*** Menu ***"
+                           "\n'1': Add movie"
+                           "\n'2': Edit movie length"
+                           "\n'3': Print out movie length"
+                           "\n'4': Print out list of movies"
+                           "\n'0': Quit"
+                           "\nEnter option here: "))
             # makes sure it is one of the choices
-            if choice in choice:
+            if choice in choices:
                 print("You have chosen {}.\n".format(choice))
                 menu_option = False
             else:
-                print("Please enter a valid option, e.g. Q")
+                print("Please enter a valid option, e.g. 0")
         except ValueError:
-            print("Please enter a valid option, e.g. Q")
+            print("Please enter a valid option, e.g. 0")
     return choice
 
 
 # function for getting the movie key
 def get_movie_key():
     """
-    asks useer for movie key then returns 
+    asks user for movie key then returns 
     """
     MIN_DICT_SIZE = 0
     getting_key = True
@@ -83,7 +83,7 @@ def add_movie(dictionary):
     try:
         time = int(input("Please enter the time of the movie in minutes: "))
         if  time < LOWEST_TIME or time > HIGHEST_TIME:
-            print("Please enter the time of a moive less than 299 minutes")
+            print("Please enter the time of a movie less than 299 minutes")
 
         # converts the dictionary to a list so it can accces last value
         # creates a new movie key
@@ -91,36 +91,67 @@ def add_movie(dictionary):
         dictionary.update({key: {"Title": movie.title(),
                                  "Director": director.title(),
                                  "Time in minutes": time}})
-
     except ValueError:
         print("Please enter a valing movie time in minutes, e.g 120")
             
 
-
-
 # function for editing a movies length
-def edit_movie_time(movies):
-    pass
+def edit_movie_time(dictionary):
     """
     asks user for a new time for selected movie
-    """
-    
+    """  
+    movie_time_change = int(input("\nPlease select the key number "
+                                  "for the movie you would like to "
+                                  "change the rating for: "))
+    movie_information = dictionary[movie_time_change]
+    movie = movie_information["Title"]
+    director = movie_information["Director"]
+    time = movie_information["Time in minutes"]
+    key = movie_time_change
+
+    get_time = True
+    while get_time:
+        try:
+            new_time = int(input("Please give the movie a new time less than"
+                                 " 299 minutes: "))
+            if new_time < 0 or new_time > 299:
+                # makes sure movie time is within the correct length
+                print("Please give the moive a time between 0 and 299 minutes")
+            elif new_time == time:
+                # makes sure that the time entered isnt what the time alreday is
+                print("The movie already has this time, please change it")
+            elif new_time != time and new_time >= 0 and new_time <= 299:
+                # makes sure the time entered is new and fits the required time
+                movie = movie_information["Title"]
+                director = movie_information["Director"]
+                time = movie_information["Time in minutes"]
+                key = movie_time_change
+                movie_information = dictionary[movie_time_change]
+
+
+                dictionary.update({key: {"Title": movie,
+                                         "Director": director,
+                                         "Time in minutes": new_time}})
+                get_time = False
+            else:
+                print("Please enter a number between 0 and 299")
+        except ValueError:
+            print("Please  enter a whole number")
+
 
 # function for minutes to hours and minutes
 def mins_to_hour():
-    pass
     """
-
+    converts the time from minutes to hours and minutes
     """
-
+    print("This feature is currently under development")
 
 # function for printing movie time in hours and minutes
 def movie_length(dictionary):
-    pass
     """
-
+     will print out a specfic movie chosen and its length in hours and minutes
     """
-
+    print("This feature is currently under development")
 
 # function for printing out movie list
 def print_movies(dictionary):
@@ -160,22 +191,22 @@ if __name__ == "__main__":
     while code_running:
         # gets menu option by running function
         menu_option = getting_movie()
-        if menu_option == 'A' or menu_option == 'a':
+        if menu_option == 1:
             # goes to add movie function
             add_movie(movies)
             print_movies(movies)
-        elif menu_option == 'E':
+        elif menu_option == 2:
             # goes to edit movie function
             print_movies(movies)
-            edit_movie(movies)
+            edit_movie_time(movies)
             print_movies(movies)
-        elif menu_option == 'L':
+        elif menu_option == 3:
             # goes to print moive length function
             movie_length(movies)
-        elif menu_option == 'P' or menu_option == 'p':
+        elif menu_option == 4:
             # goes to print movies function
             print_movies(movies)
-        elif menu_option == 'Q':
+        elif menu_option == 0:
             # ends loop
             code_running = False
         else:
