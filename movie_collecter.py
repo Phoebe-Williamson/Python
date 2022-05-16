@@ -2,16 +2,14 @@
 # movie_collecter.py
 # make a movie collection program
 # 
-#
-#
 # Author: Phoebe Williamson
 # 9/5/22 - 21/5/22
 
 # Done:
 # Funtion for menu
+# Function to add movie (title, director, and length)
 
 # To do list:
-# Function to add movie (title, director, and length)
 # Funtion to edit movie length
 # Function to print out the movie time in hours and minutes
 # Funtion to print out all the movies
@@ -49,7 +47,7 @@ def getting_movie():
 # function for getting the movie key
 def get_movie_key():
     """
-    asks user for movie key then returns 
+    asks user for movie key then returns
     """
     MIN_DICT_SIZE = 0
     getting_key = True
@@ -67,6 +65,7 @@ def get_movie_key():
                 print("Please enter a album key, e.g 2")
         except ValueError:
             print("Please enter a whole number, e.g 2")
+    return movie_key
 
 # function to add movie (title, director, and length)
 def add_movie(dictionary):
@@ -90,7 +89,7 @@ def add_movie(dictionary):
         key = list(dictionary.keys()) [-1] + 1
         dictionary.update({key: {"Title": movie.title(),
                                  "Director": director.title(),
-                                 "Time in minutes": time}})
+                                 "Time": time}})
     except ValueError:
         print("Please enter a valing movie time in minutes, e.g 120")
             
@@ -102,12 +101,14 @@ def edit_movie_time(dictionary):
     """  
     movie_time_change = int(input("\nPlease select the key number "
                                   "for the movie you would like to "
-                                  "change the rating for: "))
+                                  "change the time for: "))
     movie_information = dictionary[movie_time_change]
     movie = movie_information["Title"]
     director = movie_information["Director"]
-    time = movie_information["Time in minutes"]
+    time = movie_information["Time"]
     key = movie_time_change
+    HOUR = 1
+    MIN_IN_HOUR = 60
 
     get_time = True
     while get_time:
@@ -124,14 +125,14 @@ def edit_movie_time(dictionary):
                 # makes sure the time entered is new and fits the required time
                 movie = movie_information["Title"]
                 director = movie_information["Director"]
-                time = movie_information["Time in minutes"]
+                time = movie_information["Time"]
                 key = movie_time_change
                 movie_information = dictionary[movie_time_change]
 
 
                 dictionary.update({key: {"Title": movie,
                                          "Director": director,
-                                         "Time in minutes": new_time}})
+                                         "Time": new_time}})
                 get_time = False
             else:
                 print("Please enter a number between 0 and 299")
@@ -162,9 +163,9 @@ def print_movies(dictionary):
         movie_info = dictionary[key]
         movie = movie_info["Title"]
         director = movie_info["Director"]
-        time = movie_info["Time in minutes"]
+        time = movie_info["Time"]
 
-        print("{}\tTitle: {}\tDirector: {}\n\t Time in minutes:{}".format(key, movie, director, time))
+        print("{}\tTitle: {}\tDirector: {}\n\t Time:{}".format(key, movie, director, time))
 
 
 # main frame
@@ -172,19 +173,19 @@ if __name__ == "__main__":
     # the list of movies
     movies = {1: {"Title": "Minions: the rise of Gru",
                   "Director": "Kyle Balda",
-                  "Time in minutes": 91},
+                  "Time": 91},
               2: {"Title": "Uncharted",
                   "Director": "Ruben Fleischer",
-                  "Time in minutes": 116},
+                  "Time": 116},
               3: {"Title": "The Adam project",
                   "Director": "Shawn Levy",
-                  "Time in minutes": 106},
+                  "Time": 106},
               4: {"Title": "The power of the dog",
                   "Director": "Jane Campion",
-                  "Time in minutes": 126},
+                  "Time": 126},
               5: {"Title": "Rampage",
                   "Director": "Brad Peyton",
-                  "Time in minutes": 107}}
+                  "Time": 107}}
 
     # Will loop so menu will keep runing through until killed
     code_running = True
