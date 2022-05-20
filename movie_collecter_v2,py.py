@@ -57,8 +57,8 @@ def add_movie(dictionary):
     HIGHEST_TIME = 299
     LOWEST_TIME = 1
     # sets the lowest time acccepted for director and movie name
-    MIN_NAME = 3
-    MIN_TITLE = 1
+    MIN_NAME = 4
+    MIN_TITLE = 3
 
     # keeps loop running until a valid moive title has been entered
     get_movie = True
@@ -70,7 +70,7 @@ def add_movie(dictionary):
             get_movie = False
         else:
             # keeps looping until a valid title is entered
-            print("Please ennter a valid movie name.\n")
+            print("Please enter a valid movie name, e.g Titanic.\n")
 
     # keeps loop running util a valid director name has been entered
     get_director = True
@@ -105,22 +105,22 @@ def add_movie(dictionary):
                 time = time
                 time_in_hours = time_in_hours
                 get_time = False
-            elif time >= 60:
-                time = time - MIN_IN_HOUR - MIN_IN_HOUR
-                time_in_hours = time_in_hours + HOUR + HOUR
+            elif time >= 60 and time < 120:
+                time = time - MIN_IN_HOUR 
+                time_in_hours = 1
                 get_time = False
-            elif time >= 120:
+            elif time >= 120 and time < 180:
                 time = time - MIN_IN_HOUR - MIN_IN_HOUR
-                time_in_hours = time_in_hours + HOUR + HOUR
+                time_in_hours = TWO_HOUR
                 get_time = False
-            elif time >= 180:
+            elif time >= 180 and time < 240:
                 time = time - MIN_IN_HOUR - MIN_IN_HOUR - MIN_IN_HOUR
-                time_in_hours = time_in_hours + HOUR + HOUR + HOUR
+                time_in_hours = THREE_HOUR
                 get_time = False
             elif time >= 240:
-                time = time - MIN_IN_4HOUR
+                time = time - MIN_IN_HOUR - MIN_IN_HOUR - MIN_IN_HOUR - MIN_IN_HOUR
                 time_in_hours = FOUR_HOUR
-
+                get_time = False
             else:
                 get_time = False
                  
@@ -182,7 +182,7 @@ def edit_movie_time(dictionary):
                     movie = movie_information["Title"]
                     director = movie_information["Director"]
                     new_time = movie_information["Time in minutes"]
-                    time_in_hours = movie_information["Time in hours"]
+                    hours = movie_information["Time in hours"]
 
                     mins_to_hours = True
                     time_in_hours = 0
@@ -194,8 +194,8 @@ def edit_movie_time(dictionary):
                             hours = time_in_hours
                             mins_to_hours = False
                         elif new_time >= 60 and new_time < 120:
-                            new_time = new_time - MIN_IN_HOUR - MIN_IN_HOUR
-                            hours = time_in_hours + HOUR + HOUR
+                            new_time = new_time - MIN_IN_HOUR
+                            hours = time_in_hours + HOUR 
                             mins_to_hours = False
                         elif new_time >= 120 and new_time < 180:
                             new_time = new_time - MIN_IN_HOUR - MIN_IN_HOUR
