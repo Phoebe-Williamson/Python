@@ -34,8 +34,8 @@ def getting_movie():
                                "\n'4': Print out list of movies"
                                "\n'0': Quit"
                                "\nEnter option here: "))
-            # makes sure it is one of the choices
             if choice in choices:
+                # makes sure it is one of the choices
                 print("You have chosen {}.\n".format(choice))
                 menu_option = False
             else:
@@ -49,9 +49,9 @@ def getting_movie():
 # function to add movie (title, director, and length)
 def add_movie(dictionary):
     """
-    asks user for inputs for moive title, director name and time in minutes
-    changes time entered in minutes to hours and minutes then
-    adds them to the dictionary
+    asks user for inputs for movie title, director name and time in minutes
+    changes time entered in minutes to hours and minutes
+    then adds them to the dictionary
     """
     # sets the highest and lowest time aceptable for the movie length
     HIGHEST_TIME = 299
@@ -60,7 +60,7 @@ def add_movie(dictionary):
     MIN_NAME = 4
     MIN_TITLE = 3
 
-    # keeps loop running until a valid moive title has been entered
+    # keeps loop running until a valid movie title has been entered
     get_movie = True
     while get_movie:
         # asks user for a movie title
@@ -81,11 +81,12 @@ def add_movie(dictionary):
             # ends loop when a valid director name has been entered
             get_director = False
         else:
-            # keeps looping until a valid direcotr name has bean entered
+            # keeps looping until a valid direcotr name has bern entered
             print("Please enter a valid director name.\n")
     # keeps looping until valid time has been entered
     get_time = True
     while get_time:
+        # sets times
         HOUR = 1
         TWO_HOUR = 2
         THREE_HOUR = 3
@@ -99,25 +100,31 @@ def add_movie(dictionary):
             # asks user for a time in minutes
             time = int(input("Please enter the time of the movie in minutes: "))
             if  time < LOWEST_TIME or time > HIGHEST_TIME:
+                # prints if a valid time is not entered
                 print("Please enter the time of a movie between 1 and"
                       " 299 minutes")
             elif time < 60:
+                # will stay same in less than 60min
                 time = time
                 time_in_hours = time_in_hours
                 get_time = False
             elif time >= 60 and time < 120:
+                # checks that its between 60 and 120 mins
                 time = time - MIN_IN_HOUR 
                 time_in_hours = 1
                 get_time = False
             elif time >= 120 and time < 180:
+                # checks that its between 120 and 180 mins
                 time = time - MIN_IN_HOUR - MIN_IN_HOUR
                 time_in_hours = TWO_HOUR
                 get_time = False
             elif time >= 180 and time < 240:
+                # checks that its between 180 and 240 mins
                 time = time - MIN_IN_HOUR - MIN_IN_HOUR - MIN_IN_HOUR
                 time_in_hours = THREE_HOUR
                 get_time = False
             elif time >= 240:
+                # checks that its more than 240 mins
                 time = time - MIN_IN_HOUR - MIN_IN_HOUR - MIN_IN_HOUR - MIN_IN_HOUR
                 time_in_hours = FOUR_HOUR
                 get_time = False
@@ -132,6 +139,7 @@ def add_movie(dictionary):
                                      "Time in hours": time_in_hours,
                                      "Time in minutes": time}})
         except ValueError:
+            # Prints if number is not entered
             print("Please enter a valid movie time in minutes, e.g 120")
             
 
@@ -140,50 +148,57 @@ def edit_movie_time(dictionary):
     """
     asks user for a new time for selected movie
     """
+    # sets info for dictionary for when it is updated
     for key in dictionary.keys():
                     movie_information = dictionary[key]
                     movie = movie_information["Title"]
                     director = movie_information["Director"]
                     new_time = movie_information["Time in minutes"]
                     time_in_hours = movie_information["Time in hours"]
+    # keeps loop running util function is complete
     get_key = True
     while get_key:
         try:
+            # asks user for the key of the movie they would like to change
             movie_time_change = int(input("\nPlease select the key number "
                                           "for the movie you would like to "
                                           "change the time for: "))
             if movie_time_change not in dictionary.keys():
+                # prints this statement when the key is not in the dictionary
                 print("Please enter a valid movie key, e.g. 2")
             elif movie_time_change <= len(dictionary):
+                # Makes sure the key number is in the dictionary
                 get_key = False
             else:
+                # prints if invalid input is entered
                 print("Please enter a valid movie key, e.g. 2")
         except ValueError:
+            # checks that it is a number
             print("Please enter a whole number, e.g 2")
-
+    # Sets times for variables
     MIN_TIME = 0
     MAX_TIME = 299
-    HOUR = 1
-    MIN_IN_HOUR = 60
     time_in_hours = 0
-
+    # keeps looping until a valid time is entered
     get_time = True
     while get_time:
         try:
+            # asks the user for a time between 1 and 299 minutes
             new_time = int(input("Please give the movie a new time less than"
                                   " 299 minutes: "))
             if new_time < MIN_TIME or new_time > MAX_TIME:
                 # makes sure movie time is within the correct length
                 print("Please give the movie a time between 0 and 299 minutes")
-            elif new_time != time_in_hours and new_time > MIN_TIME and new_time <= MAX_TIME:
-                # makes sure the time entered is new and fits the required time
+            elif new_time > MIN_TIME and new_time <= MAX_TIME:
+                # Sets info for dictionary when updating
                 for key in dictionary.keys():
                     movie_information = dictionary[key]
                     movie = movie_information["Title"]
                     director = movie_information["Director"]
                     new_time = movie_information["Time in minutes"]
                     hours = movie_information["Time in hours"]
-
+                # makes sure the time entered is new and fits the required time
+                # Sets times for variables
                     mins_to_hours = True
                     time_in_hours = 0
                     MIN_IN_HOUR = 60
@@ -210,6 +225,7 @@ def edit_movie_time(dictionary):
                             hours = HOUR + HOUR + HOUR + HOUR
                         else:
                             mins_to_hours = False
+                    # updates dictionary with new time
                     dictionary.update({key: {"Title": movie,
                                              "Director": director,
                                              "Time in hours": hours,
@@ -234,13 +250,15 @@ def movie_length(dictionary):
         minutes = movie_info["Time in minutes"]
 
         print("{}\tTitle: {}\n\tDirector: {}".format(key, movie, director,))
-
+    # Keeps running until function is complete
     get_movie_key = True
     while get_movie_key:
+        # asks user for the key of the movies time to see
         movie_length_print = int(input("\nPlease select the key number "
                                        "for the movie you would like to "
                                        "print the time for: "))
         if movie_length_print not in dictionary.keys():
+            # makes sure that the number entered is in the list
             print("Please enter a valid movie key, e.g. 2")
     
 
@@ -248,7 +266,7 @@ def movie_length(dictionary):
 # function for printing out movie list
 def print_movies(dictionary):
     """
-    prints movies
+    prints all movies
     """
     for key in dictionary.keys():
         movie_info = dictionary[key]
@@ -256,7 +274,7 @@ def print_movies(dictionary):
         director = movie_info["Director"]
         hours = movie_info["Time in hours"]
         minutes = movie_info["Time in minutes"]
-
+        # prints out dictionary in a tidy fashion
         print("{}\tTitle: {}\tDirector: {}\n\tTime in hours: {}"
               "\tTime in minutes: {}".format(key, movie, director, hours, minutes))
 
@@ -280,7 +298,7 @@ if __name__ == "__main__":
                   "Director": "Brad Peyton",
                   "Time in hours": 1, "Time in minutes": 47}}
 
-    # Will loop so menu will keep runing through until killed
+    # Will loop so menu will keep runing through until exited
     code_running = True
     while code_running:
         # gets menu option by running function
